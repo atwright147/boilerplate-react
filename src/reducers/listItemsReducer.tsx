@@ -3,12 +3,17 @@ interface State {
     content: string;
 }
 
-type Action = { type: 'listItems/GET', payload: State };
+type Action = { type: 'listItems/GET', listItems: [] };
 
-export const reducer = (state: State[] = [], action: Action): State[] => {
+const initState = [];
+
+export const reducer = (state: State[] = initState, action: Action): State[] => {
     switch (action.type) {
         case 'listItems/GET':
-            return [action.payload] ?? [];
+            return [
+                ...action.listItems,
+                ...state,
+            ];
 
         default:
             return state;

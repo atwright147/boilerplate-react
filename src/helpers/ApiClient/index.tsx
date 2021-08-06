@@ -1,26 +1,26 @@
-import axios, { ResponseType, AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { push } from 'react-router-redux';
 
 import { configStore } from '../../store/configStore';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const handleRequest = (response: ResponseType, store = configStore): Promise<ResponseType> => {
+const handleRequest = (config: AxiosRequestConfig, store = configStore): AxiosRequestConfig => {
     (store as any).dispatch({ type: 'spinner/ADD' });
-    return Promise.resolve(response);
+    return config;
 };
 
-const handleRequestError = (error: AxiosError<any>, store = configStore): Promise<never> => {
+const handleRequestError = (error: AxiosError, store = configStore): Promise<never> => {
     (store as any).dispatch({ type: 'spinner/REMOVE' });
     return Promise.reject(error);
 };
 
-const handleResponse = (response: ResponseType, store = configStore): Promise<ResponseType> => {
+const handleResponse = (value: AxiosResponse, store = configStore): AxiosResponse => {
     (store as any).dispatch({ type: 'spinner/REMOVE' });
-    return Promise.resolve(response);
+    return value;
 };
 
-const handleResponseError = (error: AxiosError<any>, store = configStore): Promise<never> => {
+const handleResponseError = (error: AxiosError, store = configStore): Promise<never> => {
     (store as any).dispatch({ type: 'spinner/REMOVE' });
 
     let status: boolean | number = false;

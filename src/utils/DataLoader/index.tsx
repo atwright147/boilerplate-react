@@ -6,7 +6,12 @@ export interface Props {
     dispatch: dispatch;
 }
 
-export const DataLoader = (Component: React.ComponentClass, loadingAction: (dispatch: dispatch) => void, errorAction: () => () => void, hasChildren = false): void => {
+export const DataLoader = (
+    Component: React.ComponentClass,
+    loadingAction: (dispatch: dispatch) => void,
+    errorAction: () => () => void,
+    hasChildren = false,
+): void => {
     class DataLoadWrapper extends React.Component {
         props: Props;
 
